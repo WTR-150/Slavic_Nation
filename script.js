@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Zapisz dane w localStorage
-        const newMember = { nickname, role, discord, weapon };
+        const joinDate = new Date().toISOString();  // Zapisujemy datę dołączenia
+        const newMember = { nickname, role, discord, weapon, joinDate };
         const existingMembers = JSON.parse(localStorage.getItem('members')) || [];
 
         // Sprawdzenie, czy dany użytkownik już istnieje
@@ -69,4 +70,39 @@ function addMemberToList(member) {
             roleIcon = '🛡️';
             roleClass = 'role-tank';
             break;
-       
+        case 'healer':
+            roleIcon = '💉';
+            roleClass = 'role-healer';
+            break;
+        case 'dps':
+            roleIcon = '⚔️';
+            roleClass = 'role-dps';
+            break;
+        default:
+            roleClass = '';
+    }
+
+    // Określenie, jak długo członek jest w kompanii
+    const joinDate = new Date(member.joinDate);
+    const currentDate = new Date();
+    const timeDifference = currentDate - joinDate;
+    const daysInCompany = Math.floor(timeDifference / (1000 * 3600 * 24));
+    let memberStatus = 'Nowy członek'; // Domyślny status
+
+    if (daysInCompany >= 30) {
+        memberStatus = 'Stary wyjadacz';
+    } else if (daysInCompany >= 7) {
+        memberStatus = 'Starszy członek';
+    }
+
+    listItem.classList.add(roleClass);
+    listItem.innerHTML = `
+        <div class="member-info">
+            <span class="nickname">${member.nickname} (${memberStatus})</span>
+            <span class="discord">Discord: ${member.discord}</span>
+            <span class="role">Rola: ${member.role} ${roleIcon}</span>
+            ${member.weapon ? `<span class="weapon">Broń: ${member.weapon}</span>` : ''}
+        </div>
+    `;
+    memberList.appendChild(listItem);
+}
