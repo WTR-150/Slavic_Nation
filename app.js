@@ -1,45 +1,47 @@
-document.getElementById('role').addEventListener('change', function(event) {
-    const dpsOptions = document.getElementById('dps-options');
-    if (event.target.value === 'dps') {
-        dpsOptions.style.display = 'block';
-    } else {
-        dpsOptions.style.display = 'none';
-    }
-});
+// Przechowywanie członków w localStorage
+const rekrutacjaForm = document.getElementById("rekrutacjaForm");
+const czlonkowieLista = document.getElementById("czlonkowieLista").getElementsByTagName("tbody")[0];
 
-document.getElementById('recruit-form').addEventListener('submit', async function(event) {
-    event.preventDefault();
-
-    const nickname = document.getElementById('nickname').value;
-    const role = document.getElementById('role').value;
-    const discord = document.getElementById('discord').value;
-    const weapon = role === 'dps' ? document.getElementById('dps-weapon').value : 'Brak';
-
-    // Prześlij dane do backendu
-    await fetch('http://localhost:3000/members', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ nickname, role, discord, weapon })
-    });
-
-    // Pobierz aktualną listę członków
-    loadMembers();
-});
-
-// Funkcja do pobierania członków z serwera
-async function loadMembers() {
-    const response = await fetch('http://localhost:3000/members');
-    const members = await response.json();
-    const membersList = document.getElementById('members-list');
-    membersList.innerHTML = '';
-    members.forEach(member => {
-        const li = document.createElement('li');
-        li.innerHTML = `<span>${member.nickname}</span> - ${member.role} - ${member.discord} - Broń: ${member.weapon}`;
-        membersList.appendChild(li);
-    });
+// Funkcja, aby dodać członka do listy
+function addMemberToList(member) {
+    const row = czlonkowieLista.insertRow();
+    row.innerHTML = `
+        <td>${member.nick}</td>
+        <td>${member.discord}</td>
+        <td>${member.rola}</td>
+    `;
 }
 
+// Zapisz nowego członka do localStorage
+function saveMember(member) {
+    let members = JSON.parse(localStorage.getItem("members")) || [];
+    members.push(member);
+    localStorage.setItem("members", JSON.stringify(members));
+}
+
+// Załaduj członków z localStorage
+function loadMembers() {
+    let members = JSON.parse(localStorage.getItem("members")) || [];
+    members.forEach(addMemberToList);
+}
+
+// Obsługuje submit formularza
+rekrutacjaForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const nick = document.getElementById("nick").value;
+    const discord = document.getElementById("discord").value;
+    const rola = document.getElementById("rola").value;
+
+    const newMember = { nick, discord, rola };
+    
+    // Zapisz i dodaj do listy
+    saveMember(newMember);
+    addMemberToList(newMember);
+
+    // Wyczyść formularz
+    rekrutacjaForm.reset();
+});
+
 // Załaduj członków przy załadowaniu strony
-loadMembers();
+window.onload = loadMembers;
