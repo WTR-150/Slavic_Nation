@@ -9,7 +9,7 @@
 <body>
 
     <header>
-        <h1>Witaj w Slavic Nation</h1>
+        <h1>Slavic Nation</h1>
         <p>Dołącz do nas i wybierz swoją rolę!</p>
     </header>
 
@@ -78,8 +78,8 @@
             const memberInfo = document.createElement("li");
             memberInfo.classList.add(`role-${role}`);
 
-            const roleIcon = role === "tank" ? 'images/tank_icon.png' : role === "healer" ? 'images/healer_icon.png' : 'images/dps_icon.png';
-            const status = "Nowy członek"; // Tutaj można dodać logiczną część dotyczącą daty i statusu
+            const roleIcon = role === "tank" ? '🛡️' : role === "healer" ? '💖' : '⚔️';
+            const status = "Nowy członek"; // Można dodać logikę daty
             memberInfo.innerHTML = `
                 <span class="nickname">${nickname} (${status})</span><br>
                 Rola: ${role} <br>
@@ -87,10 +87,8 @@
                 Discord: ${discord}
             `;
 
-            const memberIcon = document.createElement("img");
-            memberIcon.src = roleIcon;
-            memberIcon.alt = `${role} icon`;
-            memberIcon.style.width = "30px";
+            const memberIcon = document.createElement("span");
+            memberIcon.textContent = roleIcon;
             memberInfo.prepend(memberIcon);
 
             membersList.appendChild(memberInfo);
