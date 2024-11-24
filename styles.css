@@ -1,125 +1,72 @@
-/* Ogólne style */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+document.addEventListener('DOMContentLoaded', () => {
+    // Ładowanie zapisanych danych (jeśli istnieją)
+    loadMembersList();
+
+    // Form Submission
+    document.getElementById('joinForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Pobierz dane z formularza
+        const nickname = document.getElementById('nickname').value.trim();
+        const role = document.getElementById('role').value;
+        const discord = document.getElementById('discord').value.trim();
+        const weapon = document.getElementById('weapon') ? document.getElementById('weapon').value : '';
+
+        // Sprawdzanie, czy użytkownik wypełnił wszystkie wymagane pola
+        if (!nickname || !role || !discord || (role === 'dps' && !weapon)) {
+            alert('Wszystkie pola są wymagane!');
+            return;
+        }
+
+        // Zapisz dane w localStorage
+        const newMember = { nickname, role, discord, weapon };
+        const existingMembers = JSON.parse(localStorage.getItem('members')) || [];
+
+        // Sprawdzenie, czy dany użytkownik już istnieje
+        if (existingMembers.some(member => member.nickname === nickname)) {
+            alert('Już dołączyłeś do Slavic Nation!');
+            return;
+        }
+
+        // Dodanie nowego członka do listy
+        existingMembers.push(newMember);
+        localStorage.setItem('members', JSON.stringify(existingMembers));
+
+        // Dodaj członka do listy na stronie
+        addMemberToList(newMember);
+
+        // Reset formularza
+        document.getElementById('joinForm').reset();
+    });
+
+    // Pokaż broń tylko dla DPS
+    document.getElementById('role').addEventListener('change', function (e) {
+        const weaponSelect = document.getElementById('dps-weapons');
+        if (e.target.value === 'dps') {
+            weaponSelect.style.display = 'block';
+        } else {
+            weaponSelect.style.display = 'none';
+        }
+    });
+});
+
+// Funkcja do ładowania członków z localStorage
+function loadMembersList() {
+    const members = JSON.parse(localStorage.getItem('members')) || [];
+    members.forEach(member => addMemberToList(member));
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #222;
-    color: #eaeaea;
-    margin: 0;
-    padding: 0;
-}
+// Funkcja do dodawania członka do listy
+function addMemberToList(member) {
+    const memberList = document.getElementById('members');
+    const listItem = document.createElement('li');
 
-.container {
-    width: 90%;
-    margin: 0 auto;
-}
-
-/* Header */
-header {
-    background-color: #4e5b31;
-    padding: 20px;
-    text-align: center;
-}
-
-h1 {
-    font-size: 2.5rem;
-    color: #ffffff;
-}
-
-/* Formularz */
-form {
-    background-color: #333;
-    padding: 30px;
-    border-radius: 10px;
-    margin-top: 20px;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
-}
-
-h2 {
-    color: #4CAF50;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-label {
-    font-size: 18px;
-    color: #eaeaea;
-}
-
-input, select {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border-radius: 8px;
-    border: 1px solid #444;
-    background-color: #555;
-    color: #eaeaea;
-}
-
-button {
-    width: 100%;
-    padding: 15px;
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 8px;
-    margin-top: 20px;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-/* Lista członków */
-.members-list {
-    background-color: #333;
-    padding: 20px;
-    margin-top: 40px;
-    border-radius: 10px;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
-}
-
-.members-list ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.members-list li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #444;
-    margin-bottom: 15px;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-.members-list .role-icon {
-    width: 25px;
-    height: 25px;
-    margin-left: 10px;
-}
-
-/* Ikony dla klas */
-.role-tank {
-    color: #2196F3;
-}
-
-.role-healer {
-    color: #FF5722;
-}
-
-.role-dps {
-    color: #9C27B0;
-}
+    // Ikona roli
+    let roleIcon = '';
+    let roleClass = '';
+    switch (member.role) {
+        case 'tank':
+            roleIcon = '🛡️';
+            roleClass = 'role-tank';
+            break;
+       
