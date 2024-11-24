@@ -1,96 +1,90 @@
-<<!DOCTYPE html>
-<html lang="pl">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slavic Nation – Kompania w New World</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>Slavic Nation – New World</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
     <header>
-        <div class="logo">
-            <img src="logo.png" alt="Slavic Nation Logo">
+        <div class="container">
             <h1>Slavic Nation</h1>
             <p>Siła, honor i wspólna walka</p>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#recruitment">Rekrutacja</a></li>
+                    <li><a href="#builds">Buildy</a></li>
+                    <li><a href="#events">Wydarzenia</a></li>
+                    <li><a href="#strategies">Strategie</a></li>
+                    <li><a href="#gallery">Galeria</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
     <main>
-        <section class="rekrutacja">
-            <h2>Rekrutacja do kompanii</h2>
-            <form id="rekrutacjaForm">
-                <label for="nick">Nick w grze:</label>
-                <input type="text" id="nick" name="nick" required>
-
+        <aside id="member-list">
+            <h2>Członkowie kompanii</h2>
+            <ul id="members"></ul>
+        </aside>
+        <section id="recruitment">
+            <h2>Rekrutacja</h2>
+            <form id="recruitment-form">
+                <label for="nickname">Nick w grze:</label>
+                <input type="text" id="nickname" name="nickname" required>
+                
                 <label for="discord">Nick na Discordzie:</label>
                 <input type="text" id="discord" name="discord" required>
-
-                <label for="rola">Rola w grze:</label>
-                <select id="rola" name="rola" required>
-                    <option value="Tank">Tank</option>
-                    <option value="Healer">Healer</option>
-                    <option value="DPS">DPS</option>
+                
+                <label for="role">Wybierz rolę:</label>
+                <select id="role" name="role" required>
+                    <option value="tank">Tank</option>
+                    <option value="healer">Healer</option>
+                    <option value="dps">DPS</option>
                 </select>
-
-                <button type="submit">Zarejestruj się</button>
+                
+                <button type="submit">Dołącz</button>
             </form>
         </section>
 
-        <section class="czlonkowie">
-            <h2>Lista członków</h2>
-            <table id="czlonkowieLista">
-                <thead>
-                    <tr>
-                        <th>Nick w grze</th>
-                        <th>Nick na Discordzie</th>
-                        <th>Rola</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Tutaj będą wyświetlane członkowie po zapisaniu się -->
-                </tbody>
-            </table>
+        <section id="builds">
+            <h2>Buildy</h2>
+            <div class="build">
+                <h3>Tank</h3>
+                <p>Budowanie wytrzymałości i kontrola tłumu. Polecane bronie: Miecz i Tarcza, Młot Bojowy.</p>
+            </div>
+            <div class="build">
+                <h3>Healer</h3>
+                <p>Wsparcie drużyny. Polecane bronie: Kostur Życia.</p>
+            </div>
+            <div class="build">
+                <h3>DPS</h3>
+                <p>Wyższy poziom zadawania obrażeń. Polecane bronie: Łuk, Muszkiet, Topór Wojenny.</p>
+            </div>
         </section>
 
-        <!-- Sekcja wydarzeń -->
-        <section class="wydarzenia">
+        <section id="events">
             <h2>Wydarzenia</h2>
-            <p>Informacje o nadchodzących wydarzeniach w grze.</p>
-            <!-- Można dodać listę wydarzeń z opisami -->
-            <ul>
-                <li><strong>Bitwa o terytorium:</strong> 1 grudnia 2024</li>
-                <li><strong>Wyprawa do Ruin:</strong> 5 grudnia 2024</li>
-                <li><strong>Wojna o stolicę:</strong> 10 grudnia 2024</li>
-            </ul>
+            <p>Nie przegap nadchodzących bitew i wypraw!</p>
         </section>
 
-        <!-- Sekcja O nas -->
-        <section class="onas">
-            <h2>O nas</h2>
-            <p>Nasza historia i misja. Opisujemy nasze cele oraz wartości.</p>
-            <p>Slavic Nation to kompania stworzona z pasji do walki i współpracy. Naszym celem jest zdominowanie New World i umocnienie naszej pozycji na mapie. Razem jesteśmy silniejsi!</p>
+        <section id="strategies">
+            <h2>Strategie</h2>
+            <p>Dowiedz się, jak najlepiej wykorzystać swoją klasę, zaplanować atak i utrzymać kontrolę nad terytorium.</p>
         </section>
 
-        <!-- Społeczność -->
-        <section class="spolecznosc">
-            <h2>Dołącz do naszej społeczności</h2>
-            <p>Rozmawiaj z nami na Discordzie, śledź nasze kanały społecznościowe i bądź na bieżąco z wydarzeniami!</p>
-            <ul>
-                <li><a href="https://discord.gg/xxxx" target="_blank">Discord</a></li>
-                <li><a href="https://twitter.com/SlavicNation" target="_blank">Twitter</a></li>
-                <li><a href="https://www.facebook.com/SlavicNation" target="_blank">Facebook</a></li>
-            </ul>
+        <section id="gallery">
+            <h2>Galeria</h2>
+            <p>Przeglądaj zdjęcia z naszych największych bitew i wydarzeń.</p>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 Slavic Nation. Wszelkie prawa zastrzeżone.</p>
+        <p>© 2024 Slavic Nation. Wszystkie prawa zastrzeżone.</p>
     </footer>
 
     <script src="app.js"></script>
+    <script src="members.js"></script>
 </body>
-
 </html>
