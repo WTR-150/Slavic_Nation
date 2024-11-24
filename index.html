@@ -78,7 +78,7 @@
             const memberInfo = document.createElement("li");
             memberInfo.classList.add(`role-${role}`);
 
-            const roleIcon = role === "tank" ? 'tank_role_icon.jpg' : role === "healer" ? 'healer_role_icon.jpg' : 'dps_role_icon.jpg';
+            const roleIcon = role === "tank" ? 'https://upload.wikimedia.org/wikipedia/commons/a/a6/New_World_Tank_Icon.png' : role === "healer" ? 'https://upload.wikimedia.org/wikipedia/commons/5/5c/New_World_Healer_Icon.png' : 'https://upload.wikimedia.org/wikipedia/commons/9/96/New_World_DPS_Icon.png';
             const status = "Nowy członek"; // Tutaj można dodać logiczną część dotyczącą daty i statusu
             memberInfo.innerHTML = `
                 <span class="nickname">${nickname} (${status})</span><br>
@@ -88,7 +88,7 @@
             `;
 
             const memberIcon = document.createElement("img");
-            memberIcon.src = `https://static.newworld.com/media/images/${roleIcon}`;
+            memberIcon.src = roleIcon;
             memberIcon.alt = `${role} icon`;
             memberIcon.style.width = "30px";
             memberInfo.prepend(memberIcon);
