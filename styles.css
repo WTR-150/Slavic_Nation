@@ -1,4 +1,4 @@
-/* Podstawowe resetowanie stylów */
+/* Resetowanie stylów */
 * {
     margin: 0;
     padding: 0;
@@ -7,41 +7,50 @@
 
 /* Kolory */
 :root {
-    --primary-color: #3d4a4e; /* Ziemisty brąz */
-    --secondary-color: #8e6e4d; /* Złoty */
-    --accent-color: #8c2c24; /* Czerwień (slowiański akcent) */
-    --bg-color: #e9f2f4; /* Jasna, naturalna zieleń */
-    --text-color: #fff;
+    --primary-color: #2f3b37; /* Głęboki brąz, przypominający kolor drewna */
+    --secondary-color: #d4af37; /* Złoty kolor */
+    --accent-color: #8e2c2c; /* Czerwony akcent */
+    --bg-color: #121212; /* Tło ciemne */
+    --text-color: #f4f4f4; /* Jasny tekst */
 }
 
-/* Styl ogólny */
+/* Podstawowy układ */
 body {
     font-family: 'Roboto', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
+    padding: 20px;
 }
 
+/* Nagłówek */
 header {
     background-color: var(--primary-color);
-    color: var(--text-color);
     padding: 20px;
     text-align: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 header h1 {
     font-family: 'Montserrat', sans-serif;
     font-size: 3rem;
+    color: var(--text-color);
 }
 
 header p {
     font-size: 1.2rem;
 }
 
-/* Formularz rekrutacyjny */
-form {
+/* Sekcje */
+section {
     background-color: var(--primary-color);
+    border-radius: 10px;
     padding: 20px;
-    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Formularz */
+form {
     display: grid;
     gap: 10px;
 }
@@ -49,21 +58,22 @@ form {
 form input, form select, form button {
     padding: 10px;
     font-size: 1rem;
-    border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    border: 1px solid var(--secondary-color);
 }
 
 form button {
     background-color: var(--secondary-color);
     color: var(--text-color);
     cursor: pointer;
+    border: none;
 }
 
 form button:hover {
     background-color: var(--accent-color);
 }
 
-/* Sekcja członków */
+/* Lista członków */
 table {
     width: 100%;
     margin-top: 20px;
@@ -73,39 +83,58 @@ table {
 table th, table td {
     padding: 10px;
     text-align: center;
+    border-bottom: 1px solid var(--secondary-color);
 }
 
 table th {
     background-color: var(--primary-color);
-    color: var(--text-color);
 }
 
 table tbody tr:nth-child(even) {
-    background-color: #f4f4f4;
+    background-color: #2b3e32;
 }
 
-/* Sekcje */
-section {
-    margin: 20px;
+/* Linki */
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
 }
 
-section h2 {
-    font-size: 2rem;
-    color: var(--primary-color);
+a:hover {
+    color: var(--accent-color);
+}
+
+/* Sekcja wydarzeń */
+ul {
+    list-style-type: none;
+}
+
+ul li {
+    background-color: var(--primary-color);
+    padding: 10px;
     margin-bottom: 10px;
+    border-radius: 5px;
 }
 
 /* Stopka */
 footer {
     background-color: var(--primary-color);
     color: var(--text-color);
-    padding: 10px;
     text-align: center;
+    padding: 20px;
 }
 
 /* Responsywność */
 @media (max-width: 768px) {
     body {
         padding: 10px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
     }
 }
