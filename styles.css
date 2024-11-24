@@ -4,7 +4,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #1e1e1e;
-    background-image: url('https://static.newworld.com/media/images/nw_main_background.jpg');
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/28/New_World_Screenshot.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -53,7 +53,7 @@ form {
     color: #f1f1f1;
     display: flex;
     align-items: center;
-    background-image: url('https://static.newworld.com/media/images/nw_landscape.jpg');
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/28/New_World_Screenshot.png');
     background-size: cover;
     background-position: center;
     color: white;
@@ -62,7 +62,7 @@ form {
 /* Role */
 .role-tank {
     border-left: 5px solid #3eaf7c;
-    background-image: url('https://static.newworld.com/media/images/tank_role_icon.jpg');
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a6/New_World_Tank_Icon.png');
     background-size: contain;
     background-repeat: no-repeat;
     padding-left: 40px;
@@ -70,7 +70,7 @@ form {
 
 .role-healer {
     border-left: 5px solid #d93362;
-    background-image: url('https://static.newworld.com/media/images/healer_role_icon.jpg');
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/5c/New_World_Healer_Icon.png');
     background-size: contain;
     background-repeat: no-repeat;
     padding-left: 40px;
@@ -78,7 +78,7 @@ form {
 
 .role-dps {
     border-left: 5px solid #e67e22;
-    background-image: url('https://static.newworld.com/media/images/dps_role_icon.jpg');
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/96/New_World_DPS_Icon.png');
     background-size: contain;
     background-repeat: no-repeat;
     padding-left: 40px;
@@ -109,5 +109,5 @@ form button {
 }
 
 form button:hover {
-    background-color: #e1b500;
+    background-color: #e67e22;
 }
