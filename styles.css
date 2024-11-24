@@ -3,9 +3,12 @@ body {
     font-family: 'Cinzel', serif;
     margin: 0;
     padding: 0;
-    background: url('https://static.newworld.com/media/images/nw_sea_of_emerald.jpg') no-repeat center center fixed;
+    background: url('https://cdn.mos.cms.futurecdn.net/38a570e7ab0f6c98eb2625e6e3ac091d.jpg') no-repeat center center fixed;
     background-size: cover;
     color: #e1e1e1;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Tło dla nagłówka */
@@ -16,6 +19,7 @@ header {
     text-align: center;
     font-size: 2.5rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    margin-bottom: 40px;
 }
 
 /* Formularz */
@@ -25,7 +29,7 @@ form {
     padding: 30px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
     margin-bottom: 40px;
-    background-image: url(https://static.wikia.nocookie.net/new-world2651/images/3/39/Site-community-image/revision/latest?cb=20241007235405);
+    background-image: url('https://static.newworld.com/media/images/nw_crafting_table.jpg');
     background-size: cover;
 }
 
@@ -48,7 +52,7 @@ form {
     color: #f1f1f1;
     display: flex;
     align-items: center;
-    background-image: url('https://static.newworld.com/media/images/nw_sunrise.jpg');
+    background-image: url('https://static.newworld.com/media/images/nw_landscape.jpg');
     background-size: cover;
     background-position: center;
     color: white;
@@ -57,7 +61,7 @@ form {
 /* Role */
 .role-tank {
     border-left: 5px solid #3eaf7c;
-    background-image: url('https://static.newworld.com/media/images/tank_icon.jpg');
+    background-image: url('https://static.newworld.com/media/images/tank_role_icon.jpg');
     background-size: contain;
     background-repeat: no-repeat;
     padding-left: 40px;
@@ -65,7 +69,7 @@ form {
 
 .role-healer {
     border-left: 5px solid #d93362;
-    background-image: url('https://static.newworld.com/media/images/healer_icon.jpg');
+    background-image: url('https://static.newworld.com/media/images/healer_role_icon.jpg');
     background-size: contain;
     background-repeat: no-repeat;
     padding-left: 40px;
@@ -73,7 +77,7 @@ form {
 
 .role-dps {
     border-left: 5px solid #e67e22;
-    background-image: url('https://static.newworld.com/media/images/dps_icon.jpg');
+    background-image: url('https://static.newworld.com/media/images/dps_role_icon.jpg');
     background-size: contain;
     background-repeat: no-repeat;
     padding-left: 40px;
