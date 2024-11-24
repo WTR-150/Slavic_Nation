@@ -1,108 +1,92 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Ładowanie zapisanych danych (jeśli istnieją)
-    loadMembersList();
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("recruit-form");
+    const membersList = document.getElementById("members");
 
-    // Form Submission
-    document.getElementById('joinForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        // Pobierz dane z formularza
-        const nickname = document.getElementById('nickname').value.trim();
-        const role = document.getElementById('role').value;
-        const discord = document.getElementById('discord').value.trim();
-        const weapon = document.getElementById('weapon') ? document.getElementById('weapon').value : '';
-
-        // Sprawdzanie, czy użytkownik wypełnił wszystkie wymagane pola
-        if (!nickname || !role || !discord || (role === 'dps' && !weapon)) {
-            alert('Wszystkie pola są wymagane!');
-            return;
-        }
-
-        // Zapisz dane w localStorage
-        const joinDate = new Date().toISOString();  // Zapisujemy datę dołączenia
-        const newMember = { nickname, role, discord, weapon, joinDate };
-        const existingMembers = JSON.parse(localStorage.getItem('members')) || [];
-
-        // Sprawdzenie, czy dany użytkownik już istnieje
-        if (existingMembers.some(member => member.nickname === nickname)) {
-            alert('Już dołączyłeś do Slavic Nation!');
-            return;
-        }
-
-        // Dodanie nowego członka do listy
-        existingMembers.push(newMember);
-        localStorage.setItem('members', JSON.stringify(existingMembers));
-
-        // Dodaj członka do listy na stronie
-        addMemberToList(newMember);
-
-        // Reset formularza
-        document.getElementById('joinForm').reset();
-    });
-
-    // Pokaż broń tylko dla DPS
-    document.getElementById('role').addEventListener('change', function (e) {
-        const weaponSelect = document.getElementById('dps-weapons');
-        if (e.target.value === 'dps') {
-            weaponSelect.style.display = 'block';
+    // Pokazuje opcje broni dla DPS
+    document.getElementById("role").addEventListener("change", function () {
+        const dpsOptions = document.getElementById("dps-options");
+        if (this.value === "dps") {
+            dpsOptions.style.display = "block";
         } else {
-            weaponSelect.style.display = 'none';
+            dpsOptions.style.display = "none";
         }
     });
+
+    // Wczytanie członków z LocalStorage, jeśli istnieją
+    const loadMembers = () => {
+        const members = JSON.parse(localStorage.getItem("members")) || [];
+        membersList.innerHTML = ''; // Wyczyść listę przed załadowaniem nowych danych
+        members.forEach(member => {
+            displayMember(member);
+        });
+    };
+
+    // Funkcja do wyświetlania członka na stronie
+    const displayMember = (member) => {
+        const memberInfo = document.createElement("li");
+        memberInfo.classList.add(`role-${member.role}`);
+
+        // Przypisanie ikony roli
+        const roleIcon = member.role === "tank" ? '🛡️' : member.role === "healer" ? '💖' : '⚔️';
+        const status = member.status; // Status można zmieniać na podstawie daty do obliczeń
+        memberInfo.innerHTML = `
+            <span class="nickname">${member.nickname} (${status})</span><br>
+            Rola: ${member.role} <br>
+            ${member.role === "dps" ? `Broń: ${member.weapon}` : ''} <br>
+            Discord: ${member.discord}
+        `;
+
+        // Dodanie ikony przed nickiem
+        const memberIcon = document.createElement("span");
+        memberIcon.textContent = roleIcon;
+        memberInfo.prepend(memberIcon);
+
+        // Dodanie członka do listy
+        membersList.appendChild(memberInfo);
+    };
+
+    // Obsługuje dodawanie członków do listy
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        // Pobiera dane z formularza
+        const nickname = document.getElementById("nickname").value;
+        const role = document.getElementById("role").value;
+        const discord = document.getElementById("discord").value;
+        let weapon = '';
+
+        if (role === "dps") {
+            weapon = document.getElementById("dps-weapon").value;
+        }
+
+        // Określenie statusu członka (nowy, starszy członek itp.)
+        const status = "Nowy członek"; // Możesz tu zmieniać status na podstawie czasu od dodania
+
+        // Tworzenie obiektu dla członka
+        const newMember = {
+            nickname: nickname,
+            role: role,
+            discord: discord,
+            weapon: weapon,
+            status: status
+        };
+
+        // Pobiera istniejących członków z LocalStorage
+        const existingMembers = JSON.parse(localStorage.getItem("members")) || [];
+
+        // Dodaje nowego członka do istniejącej listy
+        existingMembers.push(newMember);
+
+        // Zapisuje zaktualizowaną listę członków do LocalStorage
+        localStorage.setItem("members", JSON.stringify(existingMembers));
+
+        // Wyświetlanie nowego członka na stronie
+        displayMember(newMember);
+
+        // Resetowanie formularza po dodaniu
+        form.reset();
+    });
+
+    // Wczytanie członków, gdy strona jest załadowana
+    loadMembers();
 });
-
-// Funkcja do ładowania członków z localStorage
-function loadMembersList() {
-    const members = JSON.parse(localStorage.getItem('members')) || [];
-    members.forEach(member => addMemberToList(member));
-}
-
-// Funkcja do dodawania członka do listy
-function addMemberToList(member) {
-    const memberList = document.getElementById('members');
-    const listItem = document.createElement('li');
-
-    // Ikona roli
-    let roleIcon = '';
-    let roleClass = '';
-    switch (member.role) {
-        case 'tank':
-            roleIcon = '🛡️';
-            roleClass = 'role-tank';
-            break;
-        case 'healer':
-            roleIcon = '💉';
-            roleClass = 'role-healer';
-            break;
-        case 'dps':
-            roleIcon = '⚔️';
-            roleClass = 'role-dps';
-            break;
-        default:
-            roleClass = '';
-    }
-
-    // Określenie, jak długo członek jest w kompanii
-    const joinDate = new Date(member.joinDate);
-    const currentDate = new Date();
-    const timeDifference = currentDate - joinDate;
-    const daysInCompany = Math.floor(timeDifference / (1000 * 3600 * 24));
-    let memberStatus = 'Nowy członek'; // Domyślny status
-
-    if (daysInCompany >= 30) {
-        memberStatus = 'Stary wyjadacz';
-    } else if (daysInCompany >= 7) {
-        memberStatus = 'Starszy członek';
-    }
-
-    listItem.classList.add(roleClass);
-    listItem.innerHTML = `
-        <div class="member-info">
-            <span class="nickname">${member.nickname} (${memberStatus})</span>
-            <span class="discord">Discord: ${member.discord}</span>
-            <span class="role">Rola: ${member.role} ${roleIcon}</span>
-            ${member.weapon ? `<span class="weapon">Broń: ${member.weapon}</span>` : ''}
-        </div>
-    `;
-    memberList.appendChild(listItem);
-}
