@@ -7,46 +7,96 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
-        <h1>Slavic Nation - Dołącz do nas!</h1>
+        <h1>Witaj w Slavic Nation</h1>
+        <p>Dołącz do nas i wybierz swoją rolę!</p>
     </header>
 
-    <div class="form-container">
-        <form id="joinForm">
+    <section class="form-section">
+        <form id="recruit-form">
             <label for="nickname">Twój Nick:</label>
-            <input type="text" id="nickname" required>
-
-            <label for="role">Wybierz rolę:</label>
-            <select id="role" required>
+            <input type="text" id="nickname" name="nickname" required>
+            
+            <label for="role">Wybierz klasę:</label>
+            <select id="role" name="role" required>
                 <option value="tank">Tank</option>
                 <option value="healer">Healer</option>
                 <option value="dps">DPS</option>
             </select>
 
-            <div id="dps-weapons" style="display: none;">
-                <label for="weapon">Wybierz broń:</label>
-                <select id="weapon">
+            <div id="dps-options" class="dps-options" style="display:none;">
+                <label for="dps-weapon">Wybierz broń DPS:</label>
+                <select id="dps-weapon" name="dps-weapon">
                     <option value="rapier">Rapier</option>
                     <option value="firestaff">Firestaff</option>
                     <option value="greatsword">Greatsword</option>
                     <option value="bow">Bow</option>
                     <option value="musket">Musket</option>
-                    <option value="void gauntlet">Void Gauntlet</option>
+                    <option value="voidgauntlet">Void Gauntlet</option>
                 </select>
             </div>
 
-            <label for="discord">Twój Discord:</label>
-            <input type="text" id="discord" required>
+            <label for="discord">Nazwa na Discordzie:</label>
+            <input type="text" id="discord" name="discord" required>
 
             <button type="submit">Dołącz do Slavic Nation</button>
         </form>
-    </div>
+    </section>
 
-    <div class="members-list">
-        <h2>Członkowie Slavic Nation:</h2>
-        <ul id="members"></ul>
-    </div>
+    <section class="members-list">
+        <h2>Członkowie Slavic Nation</h2>
+        <ul id="members">
+            <!-- Członkowie będą tutaj wyświetlani -->
+        </ul>
+    </section>
 
-    <script src="script.js"></script>
+    <script>
+        document.getElementById("role").addEventListener("change", function() {
+            if (this.value === "dps") {
+                document.getElementById("dps-options").style.display = "block";
+            } else {
+                document.getElementById("dps-options").style.display = "none";
+            }
+        });
+
+        const form = document.getElementById("recruit-form");
+        const membersList = document.getElementById("members");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const nickname = document.getElementById("nickname").value;
+            const role = document.getElementById("role").value;
+            const discord = document.getElementById("discord").value;
+            let weapon = '';
+
+            if (role === "dps") {
+                weapon = document.getElementById("dps-weapon").value;
+            }
+
+            const memberInfo = document.createElement("li");
+            memberInfo.classList.add(`role-${role}`);
+
+            const roleIcon = role === "tank" ? 'tank_role_icon.jpg' : role === "healer" ? 'healer_role_icon.jpg' : 'dps_role_icon.jpg';
+            const status = "Nowy członek"; // Tutaj można dodać logiczną część dotyczącą daty i statusu
+            memberInfo.innerHTML = `
+                <span class="nickname">${nickname} (${status})</span><br>
+                Rola: ${role} <br>
+                ${role === "dps" ? `Broń: ${weapon}` : ''} <br>
+                Discord: ${discord}
+            `;
+
+            const memberIcon = document.createElement("img");
+            memberIcon.src = `https://static.newworld.com/media/images/${roleIcon}`;
+            memberIcon.alt = `${role} icon`;
+            memberIcon.style.width = "30px";
+            memberInfo.prepend(memberIcon);
+
+            membersList.appendChild(memberInfo);
+
+            form.reset();
+        });
+    </script>
 </body>
 </html>
