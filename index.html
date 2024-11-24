@@ -3,67 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slavic Nation</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Slavic Nation - Formularz rekrutacyjny</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header>
-        <h1>Slavic Nation</h1>
-        <p>Dołącz do nas i wybierz swoją rolę!</p>
+        <h1>Dołącz do Slavic Nation</h1>
     </header>
 
-    <section class="form-section">
+    <main>
         <form id="recruit-form">
-            <label for="nickname">Twój Nick:</label>
-            <input type="text" id="nickname" name="nickname" required>
-            
-            <label for="role">Wybierz klasę:</label>
-            <select id="role" name="role" required>
+            <label for="nickname">Nick:</label>
+            <input type="text" id="nickname" required><br>
+
+            <label for="role">Wybierz rolę:</label>
+            <select id="role" required>
                 <option value="tank">Tank</option>
                 <option value="healer">Healer</option>
                 <option value="dps">DPS</option>
-            </select>
+            </select><br>
 
-            <div id="dps-options" class="dps-options" style="display:none;">
-                <label for="dps-weapon">Wybierz broń DPS:</label>
-                <select id="dps-weapon" name="dps-weapon">
+            <div id="dps-options" style="display: none;">
+                <label for="dps-weapon">Wybierz broń:</label>
+                <select id="dps-weapon">
                     <option value="rapier">Rapier</option>
-                    <option value="firestaff">Firestaff</option>
+                    <option value="firestaff">Fire Staff</option>
                     <option value="greatsword">Greatsword</option>
                     <option value="bow">Bow</option>
                     <option value="musket">Musket</option>
                     <option value="voidgauntlet">Void Gauntlet</option>
-                </select>
+                </select><br>
             </div>
 
-            <label for="discord">Nazwa na Discordzie:</label>
-            <input type="text" id="discord" name="discord" required>
+            <label for="discord">Discord:</label>
+            <input type="text" id="discord" required><br>
 
             <button type="submit">Dołącz do Slavic Nation</button>
         </form>
-    </section>
+    </main>
 
-    <section class="members-list">
-        <h2>Członkowie Slavic Nation</h2>
-        <ul id="members">
-            <!-- Członkowie będą tutaj wyświetlani -->
-        </ul>
-    </section>
+    <footer>
+        <p>© 2024 Slavic Nation</p>
+    </footer>
 
+    <!-- Załaduj skrypt members.js -->
+    <script src="members.js"></script>
     <script>
-        document.getElementById("role").addEventListener("change", function() {
+        // Pokazuje opcje broni dla DPS
+        document.getElementById("role").addEventListener("change", function () {
+            const dpsOptions = document.getElementById("dps-options");
             if (this.value === "dps") {
-                document.getElementById("dps-options").style.display = "block";
+                dpsOptions.style.display = "block";
             } else {
-                document.getElementById("dps-options").style.display = "none";
+                dpsOptions.style.display = "none";
             }
         });
 
-        const form = document.getElementById("recruit-form");
-        const membersList = document.getElementById("members");
-
-        form.addEventListener("submit", function(event) {
+        // Obsługuje dodawanie nowego członka
+        document.getElementById("recruit-form").addEventListener("submit", function (event) {
             event.preventDefault();
 
             const nickname = document.getElementById("nickname").value;
@@ -75,25 +72,11 @@
                 weapon = document.getElementById("dps-weapon").value;
             }
 
-            const memberInfo = document.createElement("li");
-            memberInfo.classList.add(`role-${role}`);
+            // Dodanie członka
+            addMember(nickname, role, discord, weapon);
 
-            const roleIcon = role === "tank" ? '🛡️' : role === "healer" ? '💖' : '⚔️';
-            const status = "Nowy członek"; // Można dodać logikę daty
-            memberInfo.innerHTML = `
-                <span class="nickname">${nickname} (${status})</span><br>
-                Rola: ${role} <br>
-                ${role === "dps" ? `Broń: ${weapon}` : ''} <br>
-                Discord: ${discord}
-            `;
-
-            const memberIcon = document.createElement("span");
-            memberIcon.textContent = roleIcon;
-            memberInfo.prepend(memberIcon);
-
-            membersList.appendChild(memberInfo);
-
-            form.reset();
+            // Resetowanie formularza po dodaniu
+            this.reset();
         });
     </script>
 </body>
