@@ -69,19 +69,4 @@ function addMemberToList(member) {
             roleIcon = '🛡️';
             roleClass = 'role-tank';
             break;
-        case 'healer':
-            roleIcon = '💉';
-            roleClass = 'role-healer';
-            break;
-        case 'dps':
-            roleIcon = '⚔️';
-            roleClass = 'role-dps';
-            break;
-        default:
-            roleClass = '';
-    }
-
-    listItem.classList.add(roleClass);
-    listItem.innerHTML = `${member.nickname} (Discord: ${member.discord}) - Rola: ${member.role} ${roleIcon} ${member.weapon ? `| Broń: ${member.weapon}` : ''}`;
-    memberList.appendChild(listItem);
-}
+       
