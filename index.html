@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slavic Nation - Dołącz do nas!</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Slavic Nation - Dołącz do naszej kompanii</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Wypełnij formularz, aby dołączyć</h2>
+            <form id="joinForm">
+                <div class="form-group">
+                    <label for="nickname">Twój Nick:</label>
+                    <input type="text" id="nickname" name="nickname" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Wybierz klasę:</label>
+                    <select id="role" name="role" required>
+                        <option value="">Wybierz klasę</option>
+                        <option value="tank">Tank</option>
+                        <option value="healer">Healer</option>
+                        <option value="dps">DPS</option>
+                    </select>
+                </div>
+
+                <div id="dps-weapons" class="form-group" style="display: none;">
+                    <label for="weapon">Wybierz broń:</label>
+                    <select id="weapon" name="weapon">
+                        <option value="">Wybierz broń</option>
+                        <option value="rapier">Rapier</option>
+                        <option value="firestaff">Fire Staff</option>
+                        <option value="greatsword">Greatsword</option>
+                        <option value="bow">Bow</option>
+                        <option value="musket">Musket</option>
+                        <option value="voidgauntlet">Void Gauntlet</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="discord">Twój nick na Discordzie:</label>
+                    <input type="text" id="discord" name="discord" required>
+                </div>
+
+                <button type="submit">Dołącz do Slavic Nation</button>
+            </form>
+        </div>
+
+        <div id="members-list" class="members-list">
+            <h2>Członkowie Slavic Nation:</h2>
+            <ul id="members"></ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Slavic Nation. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
